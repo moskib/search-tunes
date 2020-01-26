@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import SearchField from '../../core/components/inputs/SearchField';
 
 const MainSearch = props => {
+  const [input, setInput] = useState('');
   const history = useHistory();
 
-  const handleOnSearchClick = () => history.push('/search-results');
+  const handleOnSearchClick = () =>
+    history.push(`/search-results?input=${input}`);
+  const handleInputChange = e => setInput(e.target.value);
 
   return (
     <>
@@ -17,7 +20,11 @@ const MainSearch = props => {
       </Row>
       <Row className='mt-3'>
         <Col xs='8' md='6' className='mx-auto'>
-          <SearchField click={() => handleOnSearchClick()} />
+          <SearchField
+            click={() => handleOnSearchClick()}
+            value={input}
+            handleChange={val => handleInputChange(val)}
+          />
         </Col>
       </Row>
     </>

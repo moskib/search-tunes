@@ -9,6 +9,7 @@ const SearchField = props => {
           placeholder='Search...'
           className='form-control-user'
           value={props.value}
+          onChange={props.handleChange}
         />
         <InputGroupAddon addonType='append'>
           <Button color='primary' className='btn-user' onClick={props.click}>

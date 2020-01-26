@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row, Table } from 'reactstrap';
 import SearchField from '../../core/components/inputs/SearchField';
 
 const SearchResults = props => {
+  const query = new URLSearchParams(props.location.search);
+
+  const [input, setInput] = useState(query.get('input'));
+
+  const hanldeOnInputChange = e => setInput(e.target.value);
+
   return (
     <>
       <Row className='pt-4'>
         <Col xs='7' sm='5' md='4'>
-          <SearchField />
+          <SearchField
+            value={input}
+            handleChange={e => hanldeOnInputChange(e)}
+          />
         </Col>
       </Row>
       <Row className='pt-4'>
