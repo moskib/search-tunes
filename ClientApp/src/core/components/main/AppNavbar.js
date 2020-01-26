@@ -20,7 +20,7 @@ const AppNavbar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar color='light' light expand='md'>
+    <Navbar color='faded' light expand='md'>
       <NavbarBrand href='/'>Search Tunes</NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>

@@ -1,12 +1,14 @@
 import React from 'react';
-import Layout from './core/components/Layout';
+import Layout from './core/components/main/Layout';
 import { Route } from 'react-router';
-import MainSearch from './pages/MainSearch';
+import MainSearch from './pages/Search/MainSearch';
+import SearchResults from './pages/Search/SearchResults';
 
 const App = () => {
   return (
     <Layout>
-      <Route path='/main-search' component={MainSearch} />
+      <Route exact path='/' component={MainSearch} />
+      <Route exact path='/search-results' component={SearchResults} />
     </Layout>
   );
 };
