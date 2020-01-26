@@ -1,7 +1,7 @@
 import React from 'react';
-import Layout from './components/core/Layout';
+import Layout from './core/components/Layout';
 import { Route } from 'react-router';
-import MainSearch from './components/pages/MainSearch';
+import MainSearch from './pages/MainSearch';
 
 const App = () => {
   return (
