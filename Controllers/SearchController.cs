@@ -23,7 +23,7 @@ namespace search_tunes.Controllers
 
         [HttpPost] // api/search/
         public async Task<ActionResult<SearchResult[]>> Search([FromBody]JObject data)
-        {
+            {
             var term = data["body"].ToString();
             if (string.IsNullOrEmpty(term))
                 return BadRequest("The request did not include a term");
@@ -38,12 +38,11 @@ namespace search_tunes.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                //using var responseStream = await response.Con
                 var responseStream = await response.Content.ReadAsStringAsync();
 
-                var obj = (JObject)JsonConvert.DeserializeObject(responseStream);
+                var deserialized = (JObject)JsonConvert.DeserializeObject(responseStream);
 
-                var searchResults = obj["results"].ToObject<SearchResult[]>();
+                var searchResults = deserialized["results"].ToObject<SearchResult[]>();
 
                 return Ok(searchResults);
             }

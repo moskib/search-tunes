@@ -4,8 +4,6 @@ import config from '../../../config.json';
 const endpoint = config.apiEndpoint + 'search';
 
 const getSearchResults = term => {
-  console.log('term: ', endpoint);
-
   const options = {
     method: 'post',
     body: term,
@@ -14,7 +12,7 @@ const getSearchResults = term => {
     }
   };
 
-  http.post(endpoint, options);
+  return http.post(endpoint, options);
 };
 
 export default {

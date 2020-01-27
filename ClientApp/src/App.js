@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from './core/components/Layout';
 import { Route } from 'react-router';
 import MainSearch from './pages/Search/MainSearch';
-import SearchResults from './pages/Search/SearchResults';
+import SearchResults from './pages/Search/SearchResults/SearchResults';
 
 const App = () => {
   return (
