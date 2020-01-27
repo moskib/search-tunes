@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGuitar, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import searchService from '../services/searchResultsService';
 
 const ResultsTable = props => {
   const handleOnClick = item => {
@@ -22,6 +22,7 @@ const ResultsTable = props => {
           <tr>
             <th></th>
             <th>Title</th>
+            <th>By</th>
             <th>Released</th>
             <th>View</th>
           </tr>
@@ -31,10 +32,11 @@ const ResultsTable = props => {
             <tr key={result.trackId}>
               <td>
                 <FontAwesomeIcon
-                  icon={result.kind === 'song' ? faGuitar : faTicketAlt}
+                  icon={searchService.getIconByKind(result.kind)}
                 />
               </td>
               <td>{result.trackName}</td>
+              <td>{result.artistName}</td>
               <td>{moment(result.releaseDate).format('MMMM Do YYYY')}</td>
               <td>
                 <Button color='primary' onClick={() => handleOnClick(result)}>

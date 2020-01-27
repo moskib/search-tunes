@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Table } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import SearchField from '../../../core/components/inputs/SearchField';
-import searchService from '../services/searchService';
+import searchService from '../services/searchResultsService';
 import ResultsTable from './ResultsTable';
 
 const SearchResults = props => {
