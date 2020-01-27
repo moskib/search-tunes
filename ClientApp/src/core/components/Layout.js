@@ -6,7 +6,7 @@ const Layout = props => {
   return (
     <>
       {/* <AppNavbar /> */}
-      <Container>{props.children}</Container>
+      {props.children}
     </>
   );
 };

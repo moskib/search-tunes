@@ -12,7 +12,7 @@ namespace search_tunes.Controllers
 {
 
     [Route("api/[controller]")]
-    public class SearchController: ControllerBase
+    public class SearchController : ControllerBase
     {
         private readonly IHttpClientFactory _clientFactory;
 
@@ -23,7 +23,7 @@ namespace search_tunes.Controllers
 
         [HttpPost] // api/search/
         public async Task<ActionResult<SearchResult[]>> Search([FromBody]JObject data)
-            {
+        {
             var term = data["body"].ToString();
             if (string.IsNullOrEmpty(term))
                 return BadRequest("The request did not include a term");
@@ -51,6 +51,31 @@ namespace search_tunes.Controllers
                 return StatusCode(500, "Internal server error");
             }
 
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetRecord(int id)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                $"lookup?id={id}");
+            var client = _clientFactory.CreateClient("itunes");
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+
+                var deserialized = (JObject)JsonConvert.DeserializeObject(responseStream);
+
+                var result = deserialized["results"][0].ToObject<SearchResult>();
+
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

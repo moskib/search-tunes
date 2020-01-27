@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+import { Col, Row, Container } from 'reactstrap';
 import SearchField from '../../../core/components/inputs/SearchField';
 import { paginate } from '../../../utils/paginate';
-import searchService from '../services/searchResultsService';
+import searchService from '../../shared/services/searchResultsService';
 import Paginator from './components/Paginator';
 import ResultsTable from './components/ResultsTable';
 
 const SearchResults = props => {
+  const history = useHistory();
   const query = new URLSearchParams(props.location.search);
   const [input, setInput] = useState(query.get('input'));
   const [results, setResults] = useState([]);
@@ -25,6 +27,12 @@ const SearchResults = props => {
 
   const handlePageChange = page => setCurrentPage(page);
 
+  const handleRecordClick = record => {
+    if (record) {
+      history.push(`/record/${record.trackId}`);
+    }
+  };
+
   const getPagedData = () => {
     const res = paginate(results, currentPage, pageSize);
 
@@ -38,7 +46,7 @@ const SearchResults = props => {
   const { totalCount, data } = getPagedData();
 
   return (
-    <>
+    <Container>
       <Row className='pt-4'>
         <Col xs='12' sm='10' md='5'>
           <SearchField value={input} handleChange={e => handleInputChange(e)} />
@@ -46,7 +54,7 @@ const SearchResults = props => {
       </Row>
       <Row className='pt-4'>
         <Col>
-          <ResultsTable results={data} />
+          <ResultsTable results={data} onRecordClick={handleRecordClick} />
         </Col>
       </Row>
       <Row>
@@ -59,7 +67,7 @@ const SearchResults = props => {
           />
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };
 

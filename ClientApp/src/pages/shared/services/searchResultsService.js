@@ -17,17 +17,27 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const endpoint = config.apiEndpoint + 'search';
+const headers = {
+  'Content-Type': 'application/json; charset=utf-8'
+};
 
 const getSearchResults = term => {
   const options = {
     method: 'post',
     body: term,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8'
-    }
+    headers
   };
 
   return http.post(endpoint, options);
+};
+
+const getSearchResult = id => {
+  const options = {
+    method: 'get',
+    headers
+  };
+
+  return http.get(`${endpoint}/${id}`, options);
 };
 
 const getIconByKind = kind => {
@@ -63,5 +73,6 @@ const getIconByKind = kind => {
 
 export default {
   getSearchResults,
+  getSearchResult,
   getIconByKind
 };

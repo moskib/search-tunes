@@ -2,13 +2,9 @@ import React from 'react';
 import { Table, Button } from 'reactstrap';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import searchService from '../../services/searchResultsService';
+import searchService from '../../../shared/services/searchResultsService';
 
 const ResultsTable = props => {
-  const handleOnClick = item => {
-    console.log(item);
-  };
-
   return (
     <>
       <Table hover>
@@ -33,7 +29,10 @@ const ResultsTable = props => {
               <td>{result.artistName}</td>
               <td>{moment(result.releaseDate).format('MMMM Do YYYY')}</td>
               <td>
-                <Button color='primary' onClick={() => handleOnClick(result)}>
+                <Button
+                  color='primary'
+                  onClick={() => props.onRecordClick(result)}
+                >
                   View
                 </Button>
               </td>
