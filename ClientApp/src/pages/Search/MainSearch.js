@@ -9,6 +9,7 @@ const MainSearch = props => {
 
   const handleOnSearchClick = () =>
     history.push(`/search-results?input=${input}`);
+
   const handleInputChange = e => setInput(e.target.value);
 
   return (

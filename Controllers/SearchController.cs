@@ -22,8 +22,9 @@ namespace search_tunes.Controllers
         }
 
         [HttpPost] // api/search/
-        public async Task<ActionResult> Search([FromBody]string term)
+        public async Task<ActionResult<SearchResult[]>> Search([FromBody]JObject data)
         {
+            var term = data["body"].ToString();
             if (string.IsNullOrEmpty(term))
                 return BadRequest("The request did not include a term");
 
@@ -43,14 +44,13 @@ namespace search_tunes.Controllers
                 var obj = (JObject)JsonConvert.DeserializeObject(responseStream);
 
                 var searchResults = obj["results"].ToObject<SearchResult[]>();
-                
+
                 return Ok(searchResults);
             }
             else
             {
                 return StatusCode(500, "Internal server error");
             }
-
 
         }
     }

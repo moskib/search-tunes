@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Row, Table } from 'reactstrap';
 import SearchField from '../../core/components/inputs/SearchField';
+import searchService from './services/searchService';
 
 const SearchResults = props => {
   const query = new URLSearchParams(props.location.search);
 
   const [input, setInput] = useState(query.get('input'));
+
+  useEffect(() => {
+    const fetchData = async () => {
+      return await searchService.getSearchResults(input);
+    };
+    console.log(fetchData());
+  }, []);
 
   const hanldeOnInputChange = e => setInput(e.target.value);
 
