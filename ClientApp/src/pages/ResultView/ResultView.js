@@ -81,7 +81,11 @@ const ResultView = props => {
       </Row>
       <Row>
         <Col>
-          <ReactPlayer url={record.previewUrl} controls={true} />
+          {record.previewUrl ? (
+            <ReactPlayer url={record.previewUrl} controls={true} />
+          ) : (
+            <p>There is no preview for this record</p>
+          )}
         </Col>
       </Row>
     </Container>
