@@ -29,7 +29,7 @@ namespace search_tunes.Controllers
                 return BadRequest("The request did not include a term");
 
             var request = new HttpRequestMessage(HttpMethod.Get,
-                $"search?term={term}&limit=25&offset=25");
+                $"search?term={term}&limit=200");
 
             var client = _clientFactory.CreateClient("itunes");
 
