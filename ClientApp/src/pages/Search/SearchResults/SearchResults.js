@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'reactstrap';
 import SearchField from '../../../core/components/inputs/SearchField';
-import searchService from '../services/searchResultsService';
-import ResultsTable from './ResultsTable';
 import { paginate } from '../../../utils/paginate';
-import Paginator from './Paginator';
+import searchService from '../services/searchResultsService';
+import Paginator from './components/Paginator';
+import ResultsTable from './components/ResultsTable';
 
 const SearchResults = props => {
   const query = new URLSearchParams(props.location.search);

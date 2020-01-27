@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Button } from 'reactstrap';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import searchService from '../services/searchResultsService';
+import searchService from '../../services/searchResultsService';
 
 const ResultsTable = props => {
   const handleOnClick = item => {
