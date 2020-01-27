@@ -6,6 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
 import './resultview.css';
+import {
+  faPlay,
+  faUser,
+  faTable,
+  faArrowRight,
+  faAngleRight
+} from '@fortawesome/free-solid-svg-icons';
 
 const ResultView = props => {
   const [record, setRecord] = useState({});
@@ -27,7 +34,12 @@ const ResultView = props => {
     <Container>
       <Row>
         <Col>
-          <h1>{record.trackName}</h1>
+          <h1>
+            <span className='pr-3'>
+              <FontAwesomeIcon icon={faAngleRight} />
+            </span>
+            {record.trackName}
+          </h1>
         </Col>
         <Col>
           <h1>
@@ -41,17 +53,30 @@ const ResultView = props => {
       </Row>
       <Row className='my-3'>
         <Col>
-          <h5>{record.artistName}</h5>
+          <h5>
+            <span className='pr-3'>
+              <FontAwesomeIcon icon={faUser} />
+            </span>
+            {record.artistName}
+          </h5>
         </Col>
         <Col>
           <h5 className='float-right'>
+            <span className='pr-3'>
+              <FontAwesomeIcon icon={faTable} />
+            </span>
             {moment(record.releaseDate).format('MMMM Do YYYY')}
           </h5>
         </Col>
       </Row>
       <Row>
         <Col>
-          <h3>Preview</h3>
+          <h3>
+            <span className='pr-3'>
+              <FontAwesomeIcon icon={faPlay} />
+            </span>
+            Preview
+          </h3>
         </Col>
       </Row>
       <Row>
