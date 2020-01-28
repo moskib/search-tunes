@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarText, NavbarToggler } from 'reactstrap';
-
-const AppNavbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
-
+import React from 'react';
+import { Nav, Navbar, NavItem } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+const AppNavbar = ({ user }) => {
   return (
     <Navbar color='faded' light expand='md'>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <NavbarText className='ml-auto'>Simple Text</NavbarText>
-      </Collapse>
+      <NavLink className='navbar-brand' to='/'>
+        Search Tunes
+      </NavLink>
+      <Nav>
+        {!user && (
+          <>
+            <NavLink className='nav-item nav-link navbar-text' to='/login'>
+              Login
+            </NavLink>
+
+            <NavLink className='nav-item nav-link navbar-text' to='/register'>
+              Register
+            </NavLink>
+          </>
+        )}
+      </Nav>
     </Navbar>
   );
 };

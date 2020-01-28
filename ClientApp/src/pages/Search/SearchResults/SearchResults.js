@@ -20,7 +20,10 @@ const SearchResults = props => {
     window.onpopstate = e => {
       const query = new URLSearchParams(props.history.location.search);
       setInput(query.get('input'));
-      fetchResults(query.get('input')).then(res => setResults(res.data));
+      fetchResults(query.get('input')).then(res => {
+        if (res && res.data) setResults(res.data);
+        else history.push('/');
+      });
     };
   }, []);
 
