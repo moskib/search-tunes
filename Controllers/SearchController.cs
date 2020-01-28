@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Json;
@@ -114,10 +115,18 @@ namespace search_tunes.Controllers
             return Ok();
         }
 
-        //[HttpGet("top-searches")]
-        //public async Task<ActionResult<IEnumerable<Search>>> GetTopSearches()
-        //{
-        //    return Ok();
-        //}
+        [HttpGet("top-searches")]
+        public async Task<ActionResult<IEnumerable<Search>>> GetTopSearches()
+        {
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            IEnumerable<Search> userSearches = await _repo.Searches.FindAsync(s => s.UserId == Guid.Parse(userID));
+
+            var topSearches = (from search in userSearches
+                               orderby search.AmountOfSearchTimes descending
+                               select search).Take(10);
+
+            return Ok(topSearches);
+        }
     }
 }
