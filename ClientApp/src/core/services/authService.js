@@ -14,11 +14,11 @@ export const login = async (email, password) => {
     email,
     password
   });
-  localStorage.setItem(tokenKey, jwt);
+  localStorage.setItem(tokenKey, JSON.stringify(jwt));
 };
 
 export const loginWithJwt = jwt => {
-  localStorage.setItem(tokenKey, jwt);
+  localStorage.setItem(tokenKey, JSON.stringify(jwt));
 };
 
 export const logout = () => {
@@ -28,7 +28,11 @@ export const logout = () => {
 export const getCurrentUser = () => {
   try {
     const jwt = localStorage.getItem(tokenKey);
-    return jwtDecode(jwt);
+    const user = JSON.parse(jwt);
+    console.log(user);
+    const result = jwtDecode(user['tokenString']);
+    console.log(result);
+    return result;
   } catch (ex) {
     return null;
   }
