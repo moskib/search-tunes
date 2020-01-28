@@ -49,7 +49,7 @@ const SearchResults = props => {
     }
   };
 
-  window.addEventListener('pageshow', function(event) {
+  window.addEventListener('pageshow', event => {
     let historyTraversal =
       event.persisted ||
       (typeof window.performance != 'undefined' &&
