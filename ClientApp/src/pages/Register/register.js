@@ -29,7 +29,6 @@ const Register = props => {
       auth.login(user.email, user.password);
       history.push('/');
     }
-    console.log('user: ', response);
   };
 
   return (
