@@ -29,10 +29,7 @@ export const getCurrentUser = () => {
   try {
     const jwt = localStorage.getItem(tokenKey);
     const user = JSON.parse(jwt);
-    console.log(user);
-    const result = jwtDecode(user['tokenString']);
-    console.log(result);
-    return result;
+    return jwtDecode(user['tokenString']);
   } catch (ex) {
     return null;
   }
