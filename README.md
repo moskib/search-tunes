@@ -6,7 +6,7 @@ Make sure that you have the following installed:
 - .Net Core SDK 3.1.101
 - Node.js v 12.14.1
 
-After Installing the above, clone the project, and cd into it.
+After Installing the above, clone the project, and cd into 'search-tones.'
 Then in a terminal run:
 ```
 dotnet restore
