@@ -10,6 +10,7 @@ import {
   Row
 } from 'reactstrap';
 import auth from '../../core/services/authService';
+import { toast } from 'react-toastify';
 
 const Login = props => {
   const history = useHistory();
@@ -25,7 +26,13 @@ const Login = props => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    auth.login(emailInput, passwordInput).then(() => (window.location = '/'));
+    auth.login(emailInput, passwordInput).then(res => {
+      if (res && res.status === 200) {
+        window.location = '/';
+      } else {
+        toast.error('Email or password are incorrect');
+      }
+    });
   };
   return (
     <Container>

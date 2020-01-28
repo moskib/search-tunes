@@ -6,11 +6,14 @@ const apiEndpoint = config.apiEndpoint + 'auth';
 const tokenKey = 'token';
 
 export const login = async (email, password) => {
-  const { data: jwt } = await http.post(`${apiEndpoint}/login`, {
+  const res = await http.post(`${apiEndpoint}/login`, {
     email,
     password
   });
-  localStorage.setItem(tokenKey, JSON.stringify(jwt));
+  if (res && res.status === 200) {
+    localStorage.setItem(tokenKey, JSON.stringify(res['data']));
+  }
+  return res;
 };
 
 export const loginWithJwt = jwt => {

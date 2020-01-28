@@ -8,6 +8,7 @@ import Register from './pages/Register/Register';
 import ResultView from './pages/ResultView/ResultView';
 import MainSearch from './pages/Search/SearchResults/MainSearch/MainSearch';
 import SearchResults from './pages/Search/SearchResults/SearchResults';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (

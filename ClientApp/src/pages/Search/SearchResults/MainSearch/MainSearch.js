@@ -55,7 +55,7 @@ const MainSearch = () => {
           />
         </Col>
       </Row>
-      {user && topSearches && (
+      {user && topSearches.length > 0 && (
         <Row className='mt-3'>
           <Col className='mx-auto text-center'>
             <Button color='primary' onClick={handleTopSearchesClicked}>
@@ -64,7 +64,7 @@ const MainSearch = () => {
           </Col>
         </Row>
       )}
-      {topSearchesClicked && topSearches && (
+      {topSearchesClicked && topSearches.length > 0 && (
         <Row className='mt-3'>
           <Col sm='6' className='mx-auto'>
             <TopSearchesComponent topSearches={topSearches} />

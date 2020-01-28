@@ -10,6 +10,7 @@ import {
   Row
 } from 'reactstrap';
 import auth from '../../core/services/authService';
+import { toast } from 'react-toastify';
 
 const Register = props => {
   const history = useHistory();
@@ -27,6 +28,8 @@ const Register = props => {
 
     if (response && response.status === 201) {
       auth.login(user.email, user.password).then(() => (window.location = '/'));
+    } else {
+      toast.error('One or more of the fields are incorrect');
     }
   };
 
