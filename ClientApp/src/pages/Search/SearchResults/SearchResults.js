@@ -39,11 +39,7 @@ const SearchResults = props => {
   };
 
   const handleOnSearchClick = () => {
-    console.log('here');
-
     if (input) {
-      console.log(input);
-
       history.push(`/search-results?input=${input}`);
       fetchResults(input).then(res => setResults(res.data));
     }

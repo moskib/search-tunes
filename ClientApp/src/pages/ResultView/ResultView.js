@@ -1,18 +1,17 @@
+import {
+  faAngleRight,
+  faPlay,
+  faTable,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
 import { useParams } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import resultService from '../shared/services/searchResultsService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReactPlayer from 'react-player';
-import moment from 'moment';
 import './resultview.css';
-import {
-  faPlay,
-  faUser,
-  faTable,
-  faArrowRight,
-  faAngleRight
-} from '@fortawesome/free-solid-svg-icons';
 
 const ResultView = props => {
   const [record, setRecord] = useState({});

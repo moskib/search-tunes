@@ -2,17 +2,18 @@ import jwtDecode from 'jwt-decode';
 import http from './httpService';
 import config from '../../config.json';
 
-const apiEndpoint = config.apiEndpoint + '/auth';
+const apiEndpoint = config.apiEndpoint + 'auth';
 const tokenKey = 'token';
-
-http.setJwt(getJwt());
 
 const headers = {
   'Content-Type': 'application/json; charset=utf-8'
 };
 
 export const login = async (email, password) => {
-  const { data: jwt } = await http.post(apiEndpoint, { email, password });
+  const { data: jwt } = await http.post(`${apiEndpoint}/login`, {
+    email,
+    password
+  });
   localStorage.setItem(tokenKey, jwt);
 };
 
@@ -37,16 +38,10 @@ export const getJwt = () => {
   return localStorage.getItem(tokenKey);
 };
 
+http.setJwt(getJwt());
+
 export const register = user => {
-  const options = {
-    method: 'post',
-    body: {
-      email: user.username,
-      password: user.password
-    },
-    headers
-  };
-  return http.post(`${apiEndpoint}/register`, options);
+  return http.post(`${apiEndpoint}/register`, user);
 };
 
 export default {
@@ -54,5 +49,6 @@ export default {
   loginWithJwt,
   logout,
   getCurrentUser,
-  getJwt
+  getJwt,
+  register
 };

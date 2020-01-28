@@ -1,11 +1,10 @@
 import React from 'react';
-// import AppNavbar from './AppNavbar';
-import { Container } from 'reactstrap';
+import AppNavbar from './AppNavbar';
 
 const Layout = props => {
   return (
     <>
-      {/* <AppNavbar /> */}
+      <AppNavbar />
       {props.children}
     </>
   );
