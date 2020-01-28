@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,7 +11,7 @@ using search_tunes.Entities.Dtos;
 
 namespace search_tunes.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     public class SearchController : ControllerBase
     {
@@ -21,6 +22,7 @@ namespace search_tunes.Controllers
             _clientFactory = clientFactory;
         }
 
+        [AllowAnonymous]
         [HttpPost] // api/search/
         public async Task<ActionResult<SearchResultDto[]>> Search([FromBody]JObject data)
         {
@@ -53,7 +55,8 @@ namespace search_tunes.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [AllowAnonymous]
+        [HttpGet("{id}")] // api/search/5
         public async Task<ActionResult> GetRecord(int id)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
@@ -77,5 +80,8 @@ namespace search_tunes.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        //[HttpGet("top-searches")]
+        //public async Task
     }
 }

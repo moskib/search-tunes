@@ -30,6 +30,8 @@
     <Content Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     <None Include="**/*" />
+    <None Include="**/*" />
+    <None Include="$(SpaRoot)**" />
   </ItemGroup>
 
   <ItemGroup>
