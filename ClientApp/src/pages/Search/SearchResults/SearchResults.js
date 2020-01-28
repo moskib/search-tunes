@@ -15,13 +15,16 @@ const SearchResults = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 15;
 
+  useEffect(() => {
+    fetchResults().then(res => setResults(res.data));
+    window.onpopstate = e => {
+      window.location.reload(false);
+    };
+  }, []);
+
   const fetchResults = async () => {
     return await searchService.getSearchResults(input);
   };
-
-  useEffect(() => {
-    fetchResults().then(res => setResults(res.data));
-  }, []);
 
   const handleInputChange = e => setInput(e.target.value);
 
@@ -32,6 +35,23 @@ const SearchResults = props => {
       history.push(`/record/${record.trackId}`);
     }
   };
+
+  const handleOnSearchClick = () => {
+    if (input) {
+      history.push(`/search-results?input=${input}`);
+      window.location.reload(false);
+    }
+  };
+
+  window.addEventListener('pageshow', function(event) {
+    let historyTraversal =
+      event.persisted ||
+      (typeof window.performance != 'undefined' &&
+        window.performance.navigation.type === 2);
+    if (historyTraversal) {
+      window.location.reload();
+    }
+  });
 
   const getPagedData = () => {
     const res = paginate(results, currentPage, pageSize);
@@ -49,7 +69,11 @@ const SearchResults = props => {
     <Container>
       <Row className='pt-4'>
         <Col xs='12' sm='10' md='5'>
-          <SearchField value={input} handleChange={e => handleInputChange(e)} />
+          <SearchField
+            value={input}
+            handleChange={e => handleInputChange(e)}
+            click={() => handleOnSearchClick()}
+          />
         </Col>
       </Row>
       <Row className='pt-4'>
