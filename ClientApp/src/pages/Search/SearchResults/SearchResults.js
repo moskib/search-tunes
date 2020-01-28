@@ -16,14 +16,18 @@ const SearchResults = props => {
   const pageSize = 15;
 
   useEffect(() => {
-    fetchResults().then(res => setResults(res.data));
+    fetchResults(input).then(res => setResults(res.data));
     window.onpopstate = e => {
-      window.location.reload(false);
+      const query = new URLSearchParams(props.history.location.search);
+      setInput(query.get('input'));
+      fetchResults(query.get('input')).then(res => setResults(res.data));
     };
   }, []);
 
-  const fetchResults = async () => {
-    return await searchService.getSearchResults(input);
+  const fetchResults = async val => {
+    console.log(input);
+
+    return await searchService.getSearchResults(val);
   };
 
   const handleInputChange = e => setInput(e.target.value);
@@ -39,7 +43,7 @@ const SearchResults = props => {
   const handleOnSearchClick = () => {
     if (input) {
       history.push(`/search-results?input=${input}`);
-      window.location.reload(false);
+      fetchResults(input).then(res => setResults(res.data));
     }
   };
 
