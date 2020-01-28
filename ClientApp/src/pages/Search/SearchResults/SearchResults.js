@@ -69,7 +69,7 @@ const SearchResults = props => {
 
   const { length: count } = results;
 
-  if (count === 0) return <p>The search turned out with no results :(</p>;
+  if (count === 0) return <p>Loading...</p>;
 
   const { totalCount, data } = getPagedData();
 
