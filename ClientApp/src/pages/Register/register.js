@@ -26,8 +26,7 @@ const Register = props => {
     let response = await auth.register(user);
 
     if (response && response.status === 201) {
-      auth.login(user.email, user.password);
-      history.push('/');
+      auth.login(user.email, user.password).then(() => (window.location = '/'));
     }
   };
 
