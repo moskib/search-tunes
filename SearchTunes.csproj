@@ -41,6 +41,10 @@
     <Folder Include="Controllers\" />
     <Folder Include="Entities\" />
     <Folder Include="Entities\Dtos\" />
+    <Folder Include="Entities\Models\" />
+    <Folder Include="Persistance\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\WeatherForecastController.cs" />

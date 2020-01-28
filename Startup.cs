@@ -1,12 +1,18 @@
 using System;
 using System.Net.Http;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using search_tunes;
+using search_tunes.Persistance;
 
 namespace SearchTunes
 {
@@ -27,6 +33,24 @@ namespace SearchTunes
             });
 
             services.AddControllers();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("Context"))
+            );
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            var key =
+                Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => options.TokenValidationParameters
+                    = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    });
+
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -46,6 +70,7 @@ namespace SearchTunes
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseRouting();
 

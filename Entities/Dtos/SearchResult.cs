@@ -1,7 +1,7 @@
 ﻿using System;
 namespace search_tunes.Entities.Dtos
 {
-    public class SearchResult
+    public class SearchResultDto
     {
         public string Kind { get; set; }
         public string ArtistName { get; set; }

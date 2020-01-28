@@ -22,7 +22,7 @@ namespace search_tunes.Controllers
         }
 
         [HttpPost] // api/search/
-        public async Task<ActionResult<SearchResult[]>> Search([FromBody]JObject data)
+        public async Task<ActionResult<SearchResultDto[]>> Search([FromBody]JObject data)
         {
             var term = data["body"].ToString();
             if (string.IsNullOrEmpty(term))
@@ -42,7 +42,7 @@ namespace search_tunes.Controllers
 
                 var deserialized = (JObject)JsonConvert.DeserializeObject(responseStream);
 
-                var searchResults = deserialized["results"].ToObject<SearchResult[]>();
+                var searchResults = deserialized["results"].ToObject<SearchResultDto[]>();
 
                 return Ok(searchResults);
             }
@@ -68,7 +68,7 @@ namespace search_tunes.Controllers
 
                 var deserialized = (JObject)JsonConvert.DeserializeObject(responseStream);
 
-                var result = deserialized["results"][0].ToObject<SearchResult>();
+                var result = deserialized["results"][0].ToObject<SearchResultDto>();
 
                 return Ok(result);
             }
