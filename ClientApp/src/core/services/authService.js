@@ -33,6 +33,7 @@ export const getCurrentUser = () => {
 
 export const getJwt = () => {
   const jwt = localStorage.getItem(tokenKey);
+  if (!jwt) return null;
   const token = JSON.parse(jwt)['tokenString'];
   return token;
 };

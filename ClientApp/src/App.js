@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router';
-import MainSearch from './pages/Search/MainSearch';
+import MainSearch from './pages/Search/SearchResults/MainSearch/MainSearch';
 import SearchResults from './pages/Search/SearchResults/SearchResults';
 import ResultView from './pages/ResultView/ResultView';
 import Login from './pages/Login/Login';

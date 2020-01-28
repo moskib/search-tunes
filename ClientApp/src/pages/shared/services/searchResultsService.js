@@ -83,9 +83,21 @@ const submitSearchForUser = term => {
   http.post(`${endpoint}/submit-search`, { searchTerm: term }, options);
 };
 
+const getTopSearches = () => {
+  const options = {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `Bearer ${auth.getJwt()}`
+    }
+  };
+
+  return http.get(`${endpoint}/top-searches`, options);
+};
+
 export default {
   getSearchResults,
   getSearchResult,
   getIconByKind,
-  submitSearchForUser
+  submitSearchForUser,
+  getTopSearches
 };
