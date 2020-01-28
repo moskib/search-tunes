@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Button,
@@ -15,6 +15,12 @@ const Login = props => {
   const history = useHistory();
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+
+  useEffect(() => {
+    if (auth.getJwt()) {
+      history.push('/');
+    }
+  });
 
   const handleSubmit = e => {
     e.preventDefault();
