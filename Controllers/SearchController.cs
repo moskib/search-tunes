@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using search_tunes.Entities.Dtos;
+using search_tunes.Entities.Models;
 
 namespace search_tunes.Controllers
 {
@@ -16,10 +19,12 @@ namespace search_tunes.Controllers
     public class SearchController : ControllerBase
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IUnitOfWork _repo;
 
-        public SearchController(IHttpClientFactory clientFactory)
+        public SearchController(IHttpClientFactory clientFactory, IUnitOfWork repo)
         {
             _clientFactory = clientFactory;
+            _repo = repo;
         }
 
         [AllowAnonymous]
@@ -57,7 +62,7 @@ namespace search_tunes.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")] // api/search/5
-        public async Task<ActionResult> GetRecord(int id)
+        public async Task<ActionResult<SearchResultDto>> GetRecord(int id)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
                 $"lookup?id={id}");
@@ -81,7 +86,38 @@ namespace search_tunes.Controllers
             }
         }
 
+
+        [HttpPost("submit-search")]
+        public async Task<ActionResult> SubmitSearch([FromBody]UserSearchDto userSearch)
+        {
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var res = await _repo.Searches.FirstOrDefaultAsync(el => el.UserId == Guid.Parse(userID) && el.Term == userSearch.SearchTerm);
+
+            if (res == null)
+            {
+                _repo.Searches.Add(new Search
+                {
+                    Term = userSearch.SearchTerm,
+                    AmountOfSearchTimes = 1,
+                    UserId = Guid.Parse(userID),
+                });
+            }
+            else
+            {
+                res.AmountOfSearchTimes++;
+                _repo.Searches.Update(res);
+            }
+
+            await _repo.SaveChangesAsync();
+
+            return Ok();
+        }
+
         //[HttpGet("top-searches")]
-        //public async Task
+        //public async Task<ActionResult<IEnumerable<Search>>> GetTopSearches()
+        //{
+        //    return Ok();
+        //}
     }
 }
