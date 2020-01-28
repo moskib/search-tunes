@@ -25,8 +25,6 @@ const SearchResults = props => {
   }, []);
 
   const fetchResults = async val => {
-    console.log(input);
-
     return await searchService.getSearchResults(val);
   };
 
@@ -41,7 +39,11 @@ const SearchResults = props => {
   };
 
   const handleOnSearchClick = () => {
+    console.log('here');
+
     if (input) {
+      console.log(input);
+
       history.push(`/search-results?input=${input}`);
       fetchResults(input).then(res => setResults(res.data));
     }

@@ -9,7 +9,7 @@ const SearchField = props => {
   };
 
   return (
-    <form className='user'>
+    <form className='user' onSubmit={e => e.preventDefault()}>
       <InputGroup>
         <Input
           placeholder='Search...'
