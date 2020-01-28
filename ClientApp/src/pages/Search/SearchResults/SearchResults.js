@@ -6,6 +6,7 @@ import { paginate } from '../../../utils/paginate';
 import searchService from '../../shared/services/searchResultsService';
 import Paginator from './components/Paginator';
 import ResultsTable from './components/ResultsTable';
+import auth from '../../../core/services/authService';
 
 const SearchResults = props => {
   const history = useHistory();
@@ -43,6 +44,8 @@ const SearchResults = props => {
 
   const handleOnSearchClick = () => {
     if (input) {
+      const currentUser = auth.getCurrentUser();
+      if (currentUser) searchService.submitSearchForUser(input);
       history.push(`/search-results?input=${input}`);
       fetchResults(input).then(res => setResults(res.data));
     }

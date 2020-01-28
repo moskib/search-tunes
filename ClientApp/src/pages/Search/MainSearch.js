@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import SearchField from '../../core/components/inputs/SearchField';
+import auth from '../../core/services/authService';
+import searResultsService from '../shared/services/searchResultsService';
 
 const MainSearch = props => {
   const [input, setInput] = useState('');
   const history = useHistory();
 
-  const handleOnSearchClick = () => {
+  const handleOnSearchClick = async () => {
+    const currentUser = auth.getCurrentUser();
+    console.log(currentUser);
+    if (currentUser) {
+      await searResultsService.submitSearchForUser(input);
+    }
     if (input) history.push(`/search-results?input=${input}`);
   };
 

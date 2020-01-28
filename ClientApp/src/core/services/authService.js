@@ -5,10 +5,6 @@ import config from '../../config.json';
 const apiEndpoint = config.apiEndpoint + 'auth';
 const tokenKey = 'token';
 
-const headers = {
-  'Content-Type': 'application/json; charset=utf-8'
-};
-
 export const login = async (email, password) => {
   const { data: jwt } = await http.post(`${apiEndpoint}/login`, {
     email,
@@ -36,7 +32,9 @@ export const getCurrentUser = () => {
 };
 
 export const getJwt = () => {
-  return localStorage.getItem(tokenKey);
+  const jwt = localStorage.getItem(tokenKey);
+  const token = JSON.parse(jwt)['tokenString'];
+  return token;
 };
 
 http.setJwt(getJwt());

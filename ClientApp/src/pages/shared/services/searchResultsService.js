@@ -15,6 +15,7 @@ import {
   faTv,
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
+import auth from '../../../core/services/authService';
 
 const endpoint = config.apiEndpoint + 'search';
 const headers = {
@@ -71,8 +72,20 @@ const getIconByKind = kind => {
   }
 };
 
+const submitSearchForUser = term => {
+  const options = {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `Bearer ${auth.getJwt()}`
+    }
+  };
+
+  http.post(`${endpoint}/submit-search`, { searchTerm: term }, options);
+};
+
 export default {
   getSearchResults,
   getSearchResult,
-  getIconByKind
+  getIconByKind,
+  submitSearchForUser
 };
