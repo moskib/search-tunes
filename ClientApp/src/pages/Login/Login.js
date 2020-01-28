@@ -19,8 +19,7 @@ const Login = props => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    auth.login(emailInput, passwordInput);
-    history.push('/');
+    auth.login(emailInput, passwordInput).then(() => (window.location = '/'));
   };
   return (
     <Container>

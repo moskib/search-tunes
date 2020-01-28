@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Nav, Navbar } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-const AppNavbar = ({ user }) => {
+import auth from '../services/authService';
+const AppNavbar = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const currentUser = auth.getCurrentUser();
+    if (currentUser) {
+      setUser(currentUser);
+    }
+  }, []);
+
   return (
     <Navbar color='faded' light>
       <NavLink className='navbar-brand' to='/'>

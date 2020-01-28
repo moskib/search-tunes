@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route } from 'react-router';
-import MainSearch from './pages/Search/SearchResults/MainSearch/MainSearch';
-import SearchResults from './pages/Search/SearchResults/SearchResults';
-import ResultView from './pages/ResultView/ResultView';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import auth from './core/services/authService';
 import { ToastContainer } from 'react-toastify';
 import AppNavbar from './core/components/AppNavbar';
+import Logout from './core/components/Logout';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import ResultView from './pages/ResultView/ResultView';
+import MainSearch from './pages/Search/SearchResults/MainSearch/MainSearch';
+import SearchResults from './pages/Search/SearchResults/SearchResults';
 
 const App = () => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const user = auth.getCurrentUser();
-    setUser(user);
-  }, []);
-
   return (
     <>
       <ToastContainer />
-      <AppNavbar user={user} />
+      <AppNavbar />
       <Route exact path='/' component={MainSearch} />
       <Route exact path='/search-results' component={SearchResults} />
       <Route exact path='/record/:id' component={ResultView} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />
+      <Route exact path='/logout' component={Logout} />
     </>
   );
 };
